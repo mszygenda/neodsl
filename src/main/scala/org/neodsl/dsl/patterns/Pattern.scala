@@ -2,8 +2,8 @@ package org.neodsl.dsl.patterns
 
 import org.neodsl.dsl.domain.Node
 import scala.Null
-import org.neodsl.dsl.reflection.ObjectFactory
 import scala.collection.immutable.HashMap
+import org.neodsl.reflection.proxy.ObjectFactory
 
 case class Pattern[T >: Null <: Node[T], U >: Null <: Node[U]](node: NodePatternElement[T], relation: RelationPatternElement[T, U], tail: PatternElement[U])
 extends PatternElement[T]

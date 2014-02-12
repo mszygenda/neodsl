@@ -1,7 +1,9 @@
-package org.neodsl.dsl.reflection
+package org.neodsl.reflection.proxy
 
 import scala.collection.immutable.HashMap
 import scala.reflect.runtime.{universe => ru}
+import net.sf.cglib.proxy.Enhancer
+import org.neodsl.reflection.proxy.IdentifierProxy
 
 object ObjectFactory {
     def createObject[P](map: HashMap[String, Any])(implicit manifest: Manifest[P]) : P = {
@@ -20,4 +22,18 @@ object ObjectFactory {
     }
 
     private def classLoader = ru.runtimeMirror(getClass.getClassLoader)
+
+    def createProxiedObject[P <: Proxyable, U <: Proxy](proxy: U)(implicit manifest: Manifest[P]): P = {
+      val enhancer = new Enhancer()
+      val objType  = ru.typeTag[P].tpe.typeSymbol.asClass.toType
+      val objClass = classLoader.runtimeClass(objType)
+
+      enhancer.setSuperclass(objClass)
+      enhancer.setCallback(proxy)
+
+      enhancer.create match {
+        case p: P => p
+        case _ => throw new Exception("Proxy creation has failed")
+      }
+    }
 }
