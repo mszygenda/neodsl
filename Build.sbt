@@ -1,3 +1,5 @@
+org.scalastyle.sbt.ScalastylePlugin.Settings
+
 name := "neodsl"
 
 scalaVersion := "2.11.0-M5"
