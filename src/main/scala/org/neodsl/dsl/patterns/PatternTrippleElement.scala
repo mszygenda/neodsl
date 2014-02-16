@@ -14,6 +14,10 @@ extends PatternElement[T]
     PatternTrippleElement(node, relation, buildPattern(obj))
   }
 
+  def apply(connections: Range) = {
+    PatternTrippleElement(node, RelationElement(relation.relation, connections), tail)
+  }
+
   def apply(nextNode: U) = {
     PatternTrippleElement(node, relation, NodeElement(nextNode))
   }

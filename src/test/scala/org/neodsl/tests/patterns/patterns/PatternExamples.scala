@@ -9,6 +9,10 @@ class PatternExamples extends BaseTests {
   val matthew = Person("Matthew")
   val wiseComment = Comment("Wise Comment")
 
+  def queryWithConnectionsSpecified = {
+    { john.knows (1 to 2) { friend knows matthew } }
+  }
+
   def queryWithAnonymousNodes = {
     { john knows (_ knows (_ wrote wiseComment)) } and
     { john knows (_ knows { matthew likes wiseComment }) } and
