@@ -1,3 +1,5 @@
 package org.neodsl.queries.components.patterns.compositions
 
-trait PatternComposition
+import org.neodsl.dsl.patterns.PatternCompositionExtensions
+
+trait PatternComposition extends PatternCompositionExtensions
