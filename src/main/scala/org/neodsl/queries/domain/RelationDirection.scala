@@ -1,4 +1,4 @@
-package org.neodsl.dsl.domain
+package org.neodsl.queries.domain
 
 trait RelationDirection
 

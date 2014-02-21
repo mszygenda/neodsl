@@ -1,7 +1,7 @@
-package org.neodsl.tests.patterns.patterns
+package org.neodsl.tests.dsl
 
 import org.neodsl.tests.BaseTests
-import org.neodsl.tests.patterns.patterns.PatternDomain.{Comment, Person}
+import org.neodsl.tests.dsl.PatternDomain.{Comment, Person}
 
 class PatternExamples extends BaseTests {
   val john = Person("John")

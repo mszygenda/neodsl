@@ -1,9 +1,10 @@
-package org.neodsl.reflection.proxy.tests.dsl.patterns
+package org.neodsl.tests.dsl
 
-import org.neodsl.dsl.domain.{Relation, -->}
-import org.neodsl.dsl.patterns.{RelationElement, PatternTrippleElement, NodeElement}
+import org.neodsl.queries.domain.{Relation, -->}
 import org.neodsl.tests.BaseTests
-import org.neodsl.tests.patterns.patterns.PatternDomain._
+import org.neodsl.queries.components.patterns.{PatternTripple, RelationPattern, NodePattern}
+import org.neodsl.tests.dsl.PatternDomain.{Comment, Person}
+import org.neodsl.queries.components.patterns.compositions.{And, NoPatterns}
 
 class PatternBuildingTests extends BaseTests {
   val john = Person("John")
@@ -13,18 +14,20 @@ class PatternBuildingTests extends BaseTests {
   "One to one relation of concrete objects" should "be represented with single Relation Pattern element" in {
     val pattern = john knows friend
 
-    pattern should equal(PatternTrippleElement(NodeElement(john), RelationElement[Person, Person](Relation("KNOWS", -->), 1 to 1), NodeElement(friend)))
+    pattern should equal(PatternTripple(NodePattern(john), RelationPattern[Person, Person](Relation("KNOWS", -->), 1 to 1), NodePattern(friend)))
   }
 
   "Default number of connections between nodes" should "be one" in {
-    val pattern = john likes
+    val builder = john likes
+    val pattern = builder.pattern
 
     pattern.relation.connections.length should equal(1)
     pattern.relation.connections should equal (1 to 1)
   }
 
   "Number of connections between nodes" should "be updated" in {
-    val pattern = john likes(1 to 2)
+    val builder = john likes(1 to 2)
+    val pattern = builder.pattern
 
     pattern.relation.connections.length should equal(2)
     pattern.relation.connections should equal (1 to 2)
@@ -36,6 +39,6 @@ class PatternBuildingTests extends BaseTests {
 
     val patternConjunction = firstPattern and secondPattern
 
-    List(firstPattern, secondPattern) should equal (patternConjunction.toList.reverse)
+    patternConjunction should equal (And(secondPattern, And(firstPattern, NoPatterns)))
   }
 }
