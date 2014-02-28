@@ -10,7 +10,7 @@ import org.neodsl.queries.components.patterns.compositions.NoPatterns
 class PatternBuilder[T >: Null <: Node[T], U >: Null <: Node[U]](val pattern: PatternTripple[T, U])
 {
   def apply[V >: Null <: Node[V]](buildPattern: U => PatternTripple[U, V])(implicit manifest: Manifest[U]) = {
-    val obj = createInstance[U]
+    val obj = PatternBuilder.createInstance[U]
 
     pattern.copy(tail = buildPattern(obj))
   }
@@ -34,11 +34,33 @@ class PatternBuilder[T >: Null <: Node[T], U >: Null <: Node[U]](val pattern: Pa
     pattern.copy(tail = nextPattern)
   }
 
-  private def createInstance[T >: Null](implicit manifest: Manifest[T]): T = {
-    ObjectFactory.createObject[T](HashMap())
-  }
+
 
   def and[W >: Null <: Node[W], X >: Null <: Node[X]](buildPattern: => PatternTripple[W, X]) = {
     NoPatterns and pattern and buildPattern
+  }
+}
+
+object PatternBuilder {
+  def sth[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = something[T]
+
+  def something[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+
+  def sbd[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = someone[T]
+
+  def some[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = someone[T]
+
+  def someone[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+
+  def p[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+
+  def placeholder[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+
+  def anonymous[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = {
+    createInstance[T]
+  }
+
+  private def createInstance[T >: Null](implicit manifest: Manifest[T]): T = {
+    ObjectFactory.createObject[T](HashMap())
   }
 }
