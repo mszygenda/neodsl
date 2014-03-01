@@ -60,7 +60,7 @@ object PatternBuilder {
     createInstance[T]
   }
 
-  private def createInstance[T >: Null](implicit manifest: Manifest[T]): T = {
-    ObjectFactory.createObject[T](HashMap())
+  private def createInstance[T >: Null <: Node[T]](implicit manifest: Manifest[T]): T = {
+    ObjectFactory.createPlaceholderObject[T]
   }
 }

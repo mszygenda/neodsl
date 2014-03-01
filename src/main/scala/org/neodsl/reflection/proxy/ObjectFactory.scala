@@ -23,6 +23,12 @@ object ObjectFactory {
 
     private def classLoader = ru.runtimeMirror(getClass.getClassLoader)
 
+    def createPlaceholderObject[P <: Proxyable](implicit manifest: Manifest[P]) = {
+      val placeholderProxy = new PlaceholderProxy()
+
+      createProxiedObject[P, PlaceholderProxy](placeholderProxy)
+    }
+
     def createProxiedObject[P <: Proxyable, U <: Proxy](proxy: U)(implicit manifest: Manifest[P]): P = {
       val enhancer = new Enhancer()
       val objType  = ru.typeTag[P].tpe.typeSymbol.asClass.toType

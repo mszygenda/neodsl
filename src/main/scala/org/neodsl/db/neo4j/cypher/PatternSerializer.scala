@@ -5,19 +5,19 @@ import org.neodsl.queries.domain._
 import CypherKeywords._
 
 object PatternSerializer {
-  def serialize(pattern: Pattern): String = {
+  def serialize(pattern: Pattern, resolver: NameResolver): String = {
     pattern match {
       case NodePattern(node) => {
-        serializeNode(node)
+        serializeNode(node, resolver)
       }
       case PatternTripple(node, RelationPattern(rel, conn), tail) => {
-        serializeNode(node.node) + serializeRelation(rel, conn) + serialize(tail)
+        serializeNode(node.node, resolver) + serializeRelation(rel, conn) + serialize(tail, resolver)
       }
     }
   }
 
-  private def serializeNode(node: Node[_]) = {
-    "node"
+  private def serializeNode(node: Node[_], resolver: NameResolver) = {
+    resolver.name(node)
   }
 
   private def serializeRelation(rel: Relation[_, _], conn: Range) = {

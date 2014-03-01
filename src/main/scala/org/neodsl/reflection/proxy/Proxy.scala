@@ -4,7 +4,7 @@ import net.sf.cglib.proxy.{MethodProxy, MethodInterceptor}
 import java.lang.reflect.Method
 
 trait Proxy extends MethodInterceptor {
-  def intercept(obj: Any, method: Method, args: Array[AnyRef], proxy: MethodProxy): AnyRef = {
+  def intercept(obj: AnyRef, method: Method, args: Array[AnyRef], proxy: MethodProxy): AnyRef = {
     method.getName match {
       case "proxy" => {
         this

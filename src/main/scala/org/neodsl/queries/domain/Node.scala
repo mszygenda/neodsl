@@ -1,5 +1,7 @@
 package org.neodsl.queries.domain
 
-trait Node[+T >: Null <: Node[T]] {
+import org.neodsl.reflection.proxy.Proxyable
+
+trait Node[+T >: Null <: Node[T]] extends Proxyable {
   val id: Option[Long]
 }
