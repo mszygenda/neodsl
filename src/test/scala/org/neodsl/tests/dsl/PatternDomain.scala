@@ -10,6 +10,6 @@ object PatternDomain {
   }
 
   case class Comment(content: String) extends DomainObject[Comment] {
-
+    val writtenBy = <--[Person]("WROTE")
   }
 }
