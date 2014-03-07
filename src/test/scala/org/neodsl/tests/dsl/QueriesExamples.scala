@@ -13,7 +13,7 @@ class QueriesExamples extends BaseTests {
 
     { john knows friend } and
     { john likes { comment writtenBy friend } } where {
-      PropertyComparison(ObjectPropertySelector("friend", "name"), Eq, SimpleValueSelector("Matthew"))
+      PropertyComparison(ObjectPropertySelector(friend, "name"), Eq, SimpleValueSelector("Matthew"))
     } select(friend) exec (f => {
       f
     })

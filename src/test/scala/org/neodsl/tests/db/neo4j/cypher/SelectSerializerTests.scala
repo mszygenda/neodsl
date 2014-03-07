@@ -45,7 +45,7 @@ class SelectSerializerTests extends BaseTests {
   "Select query with single pattern and one condition" should "be serialized" in {
     val pattern = PatternTripple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
     val patterns = And(pattern, NoPatterns)
-    val cond = PropertyComparison(ObjectPropertySelector("john", "age"), Gt, SimpleValueSelector(20))
+    val cond = PropertyComparison(ObjectPropertySelector(john, "age"), Gt, SimpleValueSelector(20))
     val query = SelectQuery(List(friend), patterns, cond)
 
     val serializer = new SelectSerializer(query, fixedResolver)

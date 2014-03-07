@@ -1,3 +1,5 @@
 package org.neodsl.queries.components.conditions
 
-case class ObjectPropertySelector(identifier: String, property: String) extends PropertySelector
+import org.neodsl.queries.domain.Node
+
+case class ObjectPropertySelector[T >: Null <: Node[T]](obj: Node[T], property: String) extends PropertySelector

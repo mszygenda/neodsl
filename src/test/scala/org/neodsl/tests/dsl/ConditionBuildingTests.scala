@@ -13,7 +13,7 @@ class ConditionBuildingTests extends BaseTests {
 
   "Query with single condition on property" should "be created" in {
     val friend = some[Person]
-    val condition = PropertyComparison(ObjectPropertySelector("friend", "name"), Eq, SimpleValueSelector("Matthew"))
+    val condition = PropertyComparison(ObjectPropertySelector(friend, "name"), Eq, SimpleValueSelector("Matthew"))
 
     val pattern = john knows friend
     val queryBuilder = pattern where {

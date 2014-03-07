@@ -37,8 +37,8 @@ object WhereSerializer {
 
   def serializeSelector(propSelector: PropertySelector, resolver: NameResolver): String = {
     propSelector match {
-      case ObjectPropertySelector(objName, property) => {
-        "%s.%s" format (objName, property)
+      case ObjectPropertySelector(obj, property) => {
+        "%s.%s" format (resolver.name(obj), property)
       }
       case SimpleValueSelector(value) => {
         value match {
