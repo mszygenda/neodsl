@@ -6,4 +6,8 @@ import org.neodsl.dsl.patterns.PatternTrippleExtensions
 
 case class PatternTripple[T >: Null <: Node[T], U >: Null <: Node[U]](head: NodePattern[T], relation: RelationPattern[T, U], tail: PatternWithNode[U])
   extends PatternWithNode[T]
-  with PatternTrippleExtensions[T, U]
+  with PatternTrippleExtensions[T, U] {
+  def nodes: List[Node[_]] = {
+    head.node :: tail.nodes
+  }
+}

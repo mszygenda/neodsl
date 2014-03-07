@@ -3,7 +3,7 @@ package org.neodsl.db.neo4j.cypher
 object CypherKeywords {
   val START = "START"
   val MATCH = "MATCH"
-  val RETURNS = "RETURNS"
+  val RETURN = "RETURN"
   val namedRelOpen = "[:"
   val namedRelClose = "]"
   val relLeftDir = "<-"
