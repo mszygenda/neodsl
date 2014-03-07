@@ -11,3 +11,5 @@ case object Lt extends ComparisonOperator
 case object Le extends ComparisonOperator
 
 case object Ge extends ComparisonOperator
+
+case object Neq extends ComparisonOperator
