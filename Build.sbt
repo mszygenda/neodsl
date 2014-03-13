@@ -4,6 +4,8 @@ name := "neodsl"
 
 scalaVersion := "2.11.0-M5"
 
+scalacOptions += "-Ymacro-debug-lite"
+
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.0.M7" % "test"
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % "2.11.0-M5"

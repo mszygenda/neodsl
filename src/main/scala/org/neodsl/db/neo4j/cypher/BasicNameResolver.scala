@@ -1,19 +1,19 @@
 package org.neodsl.db.neo4j.cypher
 
-import org.neodsl.queries.domain.Node
+import org.neodsl.queries.domain.{Node, TypedNode}
 import scala.collection.immutable.HashMap
 
 class BasicNameResolver extends NameResolver {
   private var lastSuffix = 0
-  private var namesAssigned = HashMap[Node[_], String]()
+  private var namesAssigned = HashMap[Node, String]()
 
-  def name(node: Node[_]): String = {
+  def name(node: Node): String = {
     namesAssigned.getOrElse(node, {
       assignName(node)
     })
   }
 
-  private def assignName(node: Node[_]): String = {
+  private def assignName(node: Node): String = {
     val name = nextName(node)
 
     namesAssigned = namesAssigned updated (node, name)
@@ -21,7 +21,7 @@ class BasicNameResolver extends NameResolver {
     name
   }
 
-  private def nextName(node: Node[_]) = {
+  private def nextName(node: Node) = {
     if (node.id.isEmpty) {
       val suffix = incrementSuffix
 

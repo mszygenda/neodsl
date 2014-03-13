@@ -1,13 +1,13 @@
 package org.neodsl.tests.db.neo4j.cypher
 
 import org.neodsl.tests.BaseTests
-import org.neodsl.queries.domain.Node
+import org.neodsl.queries.domain.TypedNode
 import org.neodsl.db.neo4j.cypher.StartSerializer
 import scala.collection.immutable.HashMap
 import org.neodsl.db.neo4j.cypher.exceptions.InvalidStartNodeException
 import org.neodsl.tests.dsl.PatternDomain.{PersonWithId, Person}
 
-class NodeWithoutId extends Node[NodeWithoutId] {
+class NodeWithoutId extends TypedNode[NodeWithoutId] {
   val id: Option[Long] = None
 }
 

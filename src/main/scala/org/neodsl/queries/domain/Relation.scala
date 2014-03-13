@@ -2,7 +2,7 @@ package org.neodsl.queries.domain
 
 import org.neodsl.queries.domain._
 
-case class Relation[+T >: Null <: Node[T], +U >: Null <: Node[U]](name: String, direction: RelationDirection) {
+case class Relation[+T >: Null <: TypedNode[T], +U >: Null <: TypedNode[U]](name: String, direction: RelationDirection) {
   override def toString: String = {
     direction match {
       case --> => "-[:%s]->" format name

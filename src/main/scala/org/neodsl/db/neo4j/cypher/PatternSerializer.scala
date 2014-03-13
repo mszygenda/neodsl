@@ -16,7 +16,7 @@ object PatternSerializer {
     }
   }
 
-  private def serializeNode(node: Node[_], resolver: NameResolver) = {
+  private def serializeNode(node: TypedNode[_], resolver: NameResolver) = {
     resolver.name(node)
   }
 

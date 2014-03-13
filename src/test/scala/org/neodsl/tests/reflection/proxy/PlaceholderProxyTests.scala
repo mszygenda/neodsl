@@ -1,7 +1,7 @@
 package org.neodsl.tests.reflection.proxy
 
 import org.neodsl.tests.BaseTests
-import org.neodsl.queries.domain.Node
+import org.neodsl.queries.domain.TypedNode
 import org.neodsl.reflection.proxy.{Proxyable, ObjectFactory}
 
 class Communist extends Proxyable {

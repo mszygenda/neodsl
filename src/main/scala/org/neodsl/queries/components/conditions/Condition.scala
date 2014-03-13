@@ -1,6 +1,14 @@
 package org.neodsl.queries.components.conditions
 
-trait Condition
+trait Condition {
+  def and(other: Condition) = {
+    And(this, other)
+  }
+
+  def or(other: Condition) = {
+    Or(this, other)
+  }
+}
 
 case object NoConditions extends Condition
 

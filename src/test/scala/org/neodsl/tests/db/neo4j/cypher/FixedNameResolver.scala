@@ -4,8 +4,8 @@ import org.neodsl.db.neo4j.cypher.NameResolver
 import scala.collection.immutable.HashMap
 import org.neodsl.queries.domain.Node
 
-class FixedNameResolver(names: HashMap[Node[_], String]) extends NameResolver {
-  def name(node: Node[_]): String = {
+class FixedNameResolver(names: HashMap[Node, String]) extends NameResolver {
+  def name(node: Node): String = {
     names(node)
   }
 }

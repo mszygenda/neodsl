@@ -1,15 +1,15 @@
 package org.neodsl.dsl.patterns
 
-import org.neodsl.queries.domain.Node
+import org.neodsl.queries.domain.TypedNode
 import scala.Null
 import scala.collection.immutable.HashMap
 import org.neodsl.reflection.proxy.ObjectFactory
 import org.neodsl.queries.components.patterns.{NodePattern, RelationPattern, PatternTripple}
 import org.neodsl.queries.components.patterns.compositions.NoPatterns
 
-class PatternBuilder[T >: Null <: Node[T], U >: Null <: Node[U]](val pattern: PatternTripple[T, U])
+class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTripple[T, U])
 {
-  def apply[V >: Null <: Node[V]](buildPattern: U => PatternTripple[U, V])(implicit manifest: Manifest[U]) = {
+  def apply[V >: Null <: TypedNode[V]](buildPattern: U => PatternTripple[U, V])(implicit manifest: Manifest[U]) = {
     val obj = PatternBuilder.createInstance[U]
 
     pattern.copy(tail = buildPattern(obj))
@@ -26,41 +26,41 @@ class PatternBuilder[T >: Null <: Node[T], U >: Null <: Node[U]](val pattern: Pa
     pattern.copy(tail = NodePattern(nextNode))
   }
 
-  def apply[V >: Null <: Node[V]](buildPattern: => PatternTripple[U, V]) = {
+  def apply[V >: Null <: TypedNode[V]](buildPattern: => PatternTripple[U, V]) = {
     pattern.copy(tail = buildPattern)
   }
 
-  def apply[V >: Null <: Node[V]](nextPattern: PatternTripple[U, V]) = {
+  def apply[V >: Null <: TypedNode[V]](nextPattern: PatternTripple[U, V]) = {
     pattern.copy(tail = nextPattern)
   }
 
 
 
-  def and[W >: Null <: Node[W], X >: Null <: Node[X]](buildPattern: => PatternTripple[W, X]) = {
+  def and[W >: Null <: TypedNode[W], X >: Null <: TypedNode[X]](buildPattern: => PatternTripple[W, X]) = {
     NoPatterns and pattern and buildPattern
   }
 }
 
 object PatternBuilder {
-  def sth[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = something[T]
+  def sth[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = something[T]
 
-  def something[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+  def something[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = anonymous[T]
 
-  def sbd[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = someone[T]
+  def sbd[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = someone[T]
 
-  def some[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = someone[T]
+  def some[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = someone[T]
 
-  def someone[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+  def someone[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = anonymous[T]
 
-  def p[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+  def p[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = anonymous[T]
 
-  def placeholder[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = anonymous[T]
+  def placeholder[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = anonymous[T]
 
-  def anonymous[T >: Null <: Node[T]](implicit manifest: Manifest[T]) = {
+  def anonymous[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = {
     createInstance[T]
   }
 
-  private def createInstance[T >: Null <: Node[T]](implicit manifest: Manifest[T]): T = {
+  private def createInstance[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]): T = {
     ObjectFactory.createPlaceholderObject[T]
   }
 }
