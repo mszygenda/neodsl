@@ -23,6 +23,9 @@ trait BooleanExpressionTransformer {
     operator match {
       case unaryOp: UnaryLogicalOperator =>
         onUnaryLogicalOperation(leftOp, unaryOp)
+      case customOp: CustomOperator => {
+        onCustomUnaryOperator(leftOp, customOp)
+      }
     }
   }
 
@@ -45,4 +48,6 @@ trait BooleanExpressionTransformer {
   def onUnaryLogicalOperation(leftOp: Tree, operator: UnaryLogicalOperator): Tree
 
   def onComparison(leftOp: Tree, cmpOperator: BinaryComparisonOperator, rightOp: Tree): Tree
+
+  def onCustomUnaryOperator(leftOp: Tree, customOp: CustomOperator): Tree
 }

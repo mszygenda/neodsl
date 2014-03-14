@@ -59,11 +59,8 @@ trait ConditionsCodeBuilder extends CodeBuilder {
 
   protected def buildSimpleValueSelector(operand: Tree): Tree = {
     operand match {
-      case Literal(Constant(_: String)) => {
-        applyTypedCaseClass(typeNames.SimpleValueSelector, List(typeOf[String]), List(operand))
-      }
-      case Literal(Constant(_: Int)) => {
-        applyTypedCaseClass(typeNames.SimpleValueSelector, List(typeOf[Int]), List(operand))
+      case Literal(Constant(lit: Any)) => {
+        applyTypedCaseClass(typeNames.SimpleValueSelector, List(operand.tpe), List(operand))
       }
     }
   }

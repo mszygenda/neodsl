@@ -50,6 +50,9 @@ object Operators {
       case "unary_$bang" => {
         Not
       }
+      case customOp => {
+        CustomOperator(customOp)
+      }
     }
   }
 }

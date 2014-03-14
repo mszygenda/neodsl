@@ -6,6 +6,10 @@ trait CodeBuilder {
   val context: Context
   import context.universe._
 
+  protected def literal(value: Any) = {
+    Literal(Constant(value))
+  }
+
   protected def selectCaseObject(name: String) = {
     selectTerm(name)
   }

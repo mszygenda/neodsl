@@ -4,11 +4,12 @@ import org.neodsl.tests.BaseTests
 import org.neodsl.macros.Macros
 import Macros._
 import org.neodsl.queries.components.conditions._
-import org.neodsl.tests.dsl.PatternDomain.{AgingPerson, Person}
+import org.neodsl.tests.dsl.PatternDomain.{PersonAcceptingRules, AgingPerson, Person}
 import org.neodsl.dsl.patterns.PatternBuilder._
 
 class ConditionBuilderMacrosTests extends BaseTests {
   val john = new AgingPerson("John", 10)
+  val user = new PersonAcceptingRules("User", true)
 
   "Boolean expression john.name == 'john'" should "be transformed into PropertyComparison object" in {
     val cond = boolExprToCondition(john.name == "john")
@@ -71,10 +72,22 @@ class ConditionBuilderMacrosTests extends BaseTests {
     cond shouldEqual (Or(fstPropComparison, sndPropComparison))
   }
 
-  "Boolean expression john.age < 5" should "be transformed into PropertyComparison, PropertyComparison object" in {
+  "Boolean expression john.age < 5" should "be transformed into PropertyComparison object" in {
     val cond = boolExprToCondition(john.age < 5)
 
     cond shouldEqual PropertyComparison(ObjectPropertySelector(john, "age"), Lt, SimpleValueSelector(5))
+  }
+
+  "Boolean expression user.acceptsRules" should "be transformed into PropertyComparison(ObjectPropertySelector, SimpleValueSelector(true)) object" in {
+    val cond = boolExprToCondition(user.acceptsRules)
+
+    cond shouldEqual PropertyComparison(ObjectPropertySelector(user, "acceptsRules"), Eq, SimpleValueSelector(true))
+  }
+
+  "Boolean expression !user.acceptsRules" should "be transformed into Not(PropertyComparison(ObjectPropertySelector, SimpleValueSelector(true))) object" in {
+    val cond = boolExprToCondition(!user.acceptsRules)
+
+    cond shouldEqual Not(PropertyComparison(ObjectPropertySelector(user, "acceptsRules"), Eq, SimpleValueSelector(true)))
   }
 
   "Boolean expression ((john.name == 'john') || (john.age > 10)) && !(john.age != 10)" should "be transformed into And(Or(PropertyComparison, PropertyComparison), Not(PropertyComparison)) object" in {

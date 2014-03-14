@@ -34,4 +34,11 @@ class BoolExprToConditionMacro[C <: Context](val context: C) extends BooleanExpr
       }
     }
   }
+
+  override def onCustomUnaryOperator(leftOp: Tree, customOp: CustomOperator): Tree = {
+    val propSelector = buildObjectPropertySelector(leftOp, customOp.name)
+    val trueValueSelector = buildSimpleValueSelector(literal(true))
+
+    buildPropertyComparison(propSelector, Eq, trueValueSelector)
+  }
 }

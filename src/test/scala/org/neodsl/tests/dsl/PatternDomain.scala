@@ -13,6 +13,8 @@ object PatternDomain {
 
   class AgingPerson(name: String, val age: Int) extends Person(name)
 
+  class PersonAcceptingRules(name: String, val acceptsRules: Boolean) extends Person(name)
+
   class PersonWithId(override val id: Option[Long], name: String) extends Person(name)
 
   case class Comment(content: String) extends DomainObject[Comment] {
