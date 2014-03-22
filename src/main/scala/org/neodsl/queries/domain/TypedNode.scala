@@ -1,9 +1,13 @@
 package org.neodsl.queries.domain
 
 import org.neodsl.reflection.proxy.Proxyable
+import scala.reflect.runtime.universe._
 
 trait Node extends Proxyable {
   val id: Option[Long]
+  val nodeType: Type
 }
 
-trait TypedNode[+T >: Null <: TypedNode[T]] extends Node
+abstract class TypedNode[+T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) extends Node {
+  val nodeType: Type = typeOf[T]
+}

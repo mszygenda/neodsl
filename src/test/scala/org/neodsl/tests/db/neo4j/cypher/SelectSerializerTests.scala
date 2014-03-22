@@ -36,7 +36,7 @@ class SelectSerializerTests extends BaseTests {
       """
         |START john=node(1)
         |MATCH john-[:KNOWS]->friend
-        |RETURN friend
+        |RETURN friend.id,friend.name
       """.stripMargin
 
     serializer.serialize shouldEqual expectedQuery.trim
@@ -54,7 +54,7 @@ class SelectSerializerTests extends BaseTests {
         |START john=node(1)
         |MATCH john-[:KNOWS]->friend
         |WHERE john.age > 20
-        |RETURN friend
+        |RETURN friend.id,friend.name
       """.stripMargin
 
     serializer.serialize shouldEqual expectedQuery.trim

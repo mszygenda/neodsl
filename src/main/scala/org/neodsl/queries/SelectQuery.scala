@@ -3,8 +3,11 @@ package org.neodsl.queries
 import org.neodsl.queries.components.patterns.compositions.{NoPatterns, And, PatternComposition}
 import org.neodsl.queries.components.conditions.Condition
 import org.neodsl.queries.domain.TypedNode
+import org.neodsl.reflection.{NodeObjectMapper, ObjectMapper}
 
 case class SelectQuery(nodes: List[TypedNode[_]], patterns: PatternComposition, condition: Condition) extends Query {
+  def mapper: ObjectMapper = new NodeObjectMapper
+
   def startNodes = {
     allNodes.filter(_.id match {
       case Some(_) => true

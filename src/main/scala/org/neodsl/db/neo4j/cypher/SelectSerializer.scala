@@ -6,7 +6,7 @@ class SelectSerializer(query: SelectQuery, nameResolver: NameResolver) {
   def serialize: String = {
     val start = StartSerializer.serialize(query.startNodes, nameResolver)
     val patternMatching = MatchSerializer.serialize(query.patterns, nameResolver)
-    val returns = ReturnSerializer.serialize(query.nodes, nameResolver)
+    val returns = ReturnSerializer.serialize(query.nodes, nameResolver, query.mapper)
     val where = WhereSerializer.serialize(query.condition, nameResolver) match {
       case "" => ""
       case str => "\n" + str

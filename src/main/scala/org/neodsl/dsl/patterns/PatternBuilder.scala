@@ -3,9 +3,9 @@ package org.neodsl.dsl.patterns
 import org.neodsl.queries.domain.TypedNode
 import scala.Null
 import scala.collection.immutable.HashMap
-import org.neodsl.reflection.proxy.ObjectFactory
 import org.neodsl.queries.components.patterns.{NodePattern, RelationPattern, PatternTripple}
 import org.neodsl.queries.components.patterns.compositions.NoPatterns
+import org.neodsl.reflection.ObjectFactory
 
 class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTripple[T, U])
 {
@@ -33,8 +33,6 @@ class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val p
   def apply[V >: Null <: TypedNode[V]](nextPattern: PatternTripple[U, V]) = {
     pattern.copy(tail = nextPattern)
   }
-
-
 
   def and[W >: Null <: TypedNode[W], X >: Null <: TypedNode[X]](buildPattern: => PatternTripple[W, X]) = {
     NoPatterns and pattern and buildPattern

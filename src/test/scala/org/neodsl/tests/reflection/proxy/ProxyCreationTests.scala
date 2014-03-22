@@ -3,6 +3,7 @@ package org.neodsl.tests.reflection.proxy
 import org.neodsl.reflection.proxy._
 import org.neodsl.tests.BaseTests
 import org.neodsl.tests.reflection.proxy.ProxyDomain.{ClassWithMultipleCtors, EmptyClassWithDefaultCtor, DummyProxy}
+import org.neodsl.reflection.ObjectFactory
 
 class ProxyCreationTests extends BaseTests {
   "Proxy of empty class with default constructor" should "be created" in {
