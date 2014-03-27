@@ -4,7 +4,7 @@ import org.neodsl.dsl.patterns._
 import org.neodsl.queries.domain.{--> => Right, <-- => Left, Relation, TypedNode}
 import org.neodsl.queries.components.patterns.{UndefinedNodePattern, RelationPattern, NodePattern, PatternTripple}
 
-trait DomainObject[T >: Null <: DomainObject[T]] extends TypedNode[T] {
+abstract class DomainObject[T >: Null <: DomainObject[T]](implicit manifest: Manifest[T]) extends TypedNode[T] {
   val id: Option[Long] = None
 
   def -->[U >: Null <: TypedNode[U]](name: String) = {
