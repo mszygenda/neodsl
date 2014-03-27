@@ -6,5 +6,5 @@ import org.neodsl.queries.Query
  * Execution engine responsible for processing queries on database
  */
 trait ExecutionEngine {
-  def execute(query: Query)
+  def execute(query: Query): List[ResultItem]
 }
