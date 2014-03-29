@@ -1,6 +1,6 @@
-package org.neodsl.db.neo4j.cypher
+package org.neodsl.queries
 
-import org.neodsl.queries.domain.{Node, TypedNode}
+import org.neodsl.queries.domain.Node
 import scala.collection.immutable.HashMap
 
 class BasicNameResolver extends NameResolver {

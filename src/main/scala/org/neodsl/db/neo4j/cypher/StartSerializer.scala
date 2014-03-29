@@ -2,6 +2,7 @@ package org.neodsl.db.neo4j.cypher
 
 import org.neodsl.queries.domain.TypedNode
 import org.neodsl.db.neo4j.cypher.exceptions.InvalidStartNodeException
+import org.neodsl.queries.NameResolver
 
 object StartSerializer {
   def serialize(nodes: List[TypedNode[_]], resolver: NameResolver): String = {

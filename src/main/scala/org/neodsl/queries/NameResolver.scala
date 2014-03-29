@@ -1,4 +1,4 @@
-package org.neodsl.db.neo4j.cypher
+package org.neodsl.queries
 
 import org.neodsl.queries.domain._
 

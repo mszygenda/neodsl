@@ -4,6 +4,7 @@ import org.neodsl.queries.components.conditions._
 import org.neodsl.queries.components.conditions.Or
 import org.neodsl.queries.components.conditions.And
 import org.neodsl.db.neo4j.cypher.exceptions.UnsupportedSimpleValueTypeException
+import org.neodsl.queries.NameResolver
 
 object WhereSerializer {
   def serialize(conditions: Condition, resolver: NameResolver) = {

@@ -2,6 +2,7 @@ package org.neodsl.reflection
 
 import scala.collection.immutable.HashMap
 import scala.reflect.runtime.universe._
+import org.neodsl.queries.domain.Node
 
 trait ObjectMapper {
   def getPropertyNames[T](implicit manifest: Manifest[T]): List[String] = {
@@ -14,5 +15,5 @@ trait ObjectMapper {
     mapToObject(typeOf[T])(map).asInstanceOf[T]
   }
 
-  def mapToObject(classType: Type)(map: HashMap[String, Any]): Any
+  def mapToObject(classType: Type)(map: Map[String, Any]): Any
 }

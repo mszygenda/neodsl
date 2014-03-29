@@ -1,6 +1,7 @@
 package org.neodsl.db.neo4j.cypher
 
 import org.neodsl.queries.components.patterns.compositions.{NoPatterns, And, PatternComposition}
+import org.neodsl.queries.NameResolver
 
 object MatchSerializer {
   def serialize(patternComp: PatternComposition, resolver: NameResolver): String = {

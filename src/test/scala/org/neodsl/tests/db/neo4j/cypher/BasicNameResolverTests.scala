@@ -3,9 +3,10 @@ package org.neodsl.tests.db.neo4j.cypher
 import org.neodsl.tests.BaseTests
 import org.neodsl.tests.dsl.PatternDomain.Person
 import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTripple}
-import org.neodsl.db.neo4j.cypher.{BasicNameResolver, PatternSerializer}
+import org.neodsl.db.neo4j.cypher.PatternSerializer
 import org.neodsl.queries.domain.{-->, Relation}
 import org.neodsl.dsl.patterns.PatternBuilder._
+import org.neodsl.queries.BasicNameResolver
 
 class BasicNameResolverTests extends BaseTests {
   class PersonWithId(override val id: Option[Long], name: String) extends Person(name)

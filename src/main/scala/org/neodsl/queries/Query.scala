@@ -1,3 +1,7 @@
 package org.neodsl.queries
 
-abstract class Query
+import org.neodsl.queries.BasicNameResolver
+
+abstract class Query {
+  def nameResolver = new BasicNameResolver
+}

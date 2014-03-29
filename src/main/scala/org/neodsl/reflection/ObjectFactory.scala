@@ -6,13 +6,13 @@ import net.sf.cglib.proxy.Enhancer
 import org.neodsl.reflection.proxy.{Proxy, PlaceholderProxy, Proxyable}
 
 object ObjectFactory {
-  def createObjectUsingDefaultCtor(classType: Type)(ctorParams: HashMap[String, Any], objProps: HashMap[String, Any]): Any = {
+  def createObjectUsingDefaultCtor(classType: Type)(ctorParams: Map[String, Any], objProps: Map[String, Any]): Any = {
     val defaultCtor = ctors(classType).find(_.paramss.isEmpty)
 
     createObjectUsingCtor(classType)(ctorParams, defaultCtor.get, objProps)
   }
 
-  def createObjectUsingMainCtor(classType: Type)(ctorParams: HashMap[String, Any], objProps: HashMap[String, Any]): Any = {
+  def createObjectUsingMainCtor(classType: Type)(ctorParams: Map[String, Any], objProps: Map[String, Any]): Any = {
     val mainCtor = ctors(classType).sortBy(_.paramss.size).last
 
     createObjectUsingCtor(classType)(ctorParams, mainCtor, objProps)
@@ -24,7 +24,7 @@ object ObjectFactory {
     symbolList.map(_.asMethod)
   }
 
-  def createObjectUsingCtor(classType: Type)(ctorParams: HashMap[String, Any], ctor: MethodSymbol, objectProps: HashMap[String, Any]): Any = {
+  def createObjectUsingCtor(classType: Type)(ctorParams: Map[String, Any], ctor: MethodSymbol, objectProps: Map[String, Any]): Any = {
     val objClass = classType.typeSymbol.asClass
     val classMirror = classLoader.reflectClass(objClass)
     val ctorMirror = classMirror.reflectConstructor(ctor)
@@ -39,7 +39,7 @@ object ObjectFactory {
     setObjectProperties(classType)(obj, objectProps)
   }
 
-  def setObjectProperties(classType: Type)(obj: Any, props: HashMap[String, Any]): Any = {
+  def setObjectProperties(classType: Type)(obj: Any, props: Map[String, Any]): Any = {
     for ((property, value) <- props) {
       field(classType)(obj, property).set(value)
     }

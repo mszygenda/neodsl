@@ -1,6 +1,6 @@
 package org.neodsl.db.neo4j.cypher
 
-import org.neodsl.queries.SelectQuery
+import org.neodsl.queries.{NameResolver, SelectQuery}
 
 class SelectSerializer(query: SelectQuery, nameResolver: NameResolver) {
   def serialize: String = {

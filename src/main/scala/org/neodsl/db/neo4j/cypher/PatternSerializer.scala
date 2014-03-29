@@ -3,6 +3,7 @@ package org.neodsl.db.neo4j.cypher
 import org.neodsl.queries.components.patterns._
 import org.neodsl.queries.domain._
 import CypherKeywords._
+import org.neodsl.queries.NameResolver
 
 object PatternSerializer {
   def serialize(pattern: Pattern, resolver: NameResolver): String = {
