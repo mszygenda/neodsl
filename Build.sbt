@@ -12,10 +12,11 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scalatest" % "scalatest_2.11.0-M5" % "2.0.M7" % "test",
   "org.scala-lang" % "scala-reflect" % "2.11.0-M7",
   "org.scala-lang" % "scala-library" % "2.11.0-M7",
   "cglib" % "cglib" % "3.1",
   "org.neo4j" % "neo4j-rest-graphdb" % "2.0.1",
-  "com.sun.jersey" % "jersey-core" % "1.9"
+  "com.sun.jersey" % "jersey-core" % "1.9",
+  "org.scalatest" % "scalatest_2.11.0-M5" % "2.0.M7" % "test",
+  "org.mockito" % "mockito-all" % "1.9.5"
 )
