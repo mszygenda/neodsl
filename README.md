@@ -41,4 +41,5 @@ START john=node(JOHN_ID)
 MATCH john-[:KNOWS]->friend->[:KNOWS]->fof,
       fof-[:LIKES]->comment<-[:WROTE]-john
 WHERE fof.age >= 20
+RETURN fof.id, fof.name, fof.age
 ```
