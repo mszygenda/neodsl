@@ -18,7 +18,7 @@ class PatternBuildingTests extends BaseTests {
   }
 
   "Default number of connections between nodes" should "be one" in {
-    val builder = john likes
+    val builder = john.likes
     val pattern = builder.pattern
 
     pattern.relation.connections.length should equal(1)
@@ -26,7 +26,7 @@ class PatternBuildingTests extends BaseTests {
   }
 
   "Number of connections between nodes" should "be updated" in {
-    val builder = john likes(1 to 2)
+    val builder = john likes (1 to 2)
     val pattern = builder.pattern
 
     pattern.relation.connections.length should equal(2)

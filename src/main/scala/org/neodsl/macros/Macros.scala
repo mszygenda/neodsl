@@ -1,6 +1,5 @@
 package org.neodsl.macros
 
-import scala.language.experimental.macros
 import scala.reflect.macros.Context
 import org.neodsl.queries.components.conditions.Condition
 

@@ -33,6 +33,9 @@ trait CodeBuilder {
         case qualifier :: tail => {
           Select(select(tail), qualifier)
         }
+        case Nil => {
+          throw new Exception("Invalid term name")
+        }
       }
     }
 

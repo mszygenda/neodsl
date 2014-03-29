@@ -4,7 +4,13 @@ name := "neodsl"
 
 scalaVersion := "2.11.0-M7"
 
-scalacOptions += "-Ymacro-debug-lite"
+// Uncomment to enable displaying macro expansions during build
+// scalacOptions += "-Ymacro-debug-lite"
+
+scalacOptions ++= Seq(
+  "-language:implicitConversions",
+  "-language:experimental.macros"
+)
 
 resolvers ++= Seq(
   "neo4jrepo" at "http://m2.neo4j.org/releases/",

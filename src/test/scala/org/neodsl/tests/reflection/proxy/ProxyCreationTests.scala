@@ -12,7 +12,7 @@ class ProxyCreationTests extends BaseTests {
 
     proxiedObject should not be(null)
     proxiedObject.isProxied should be(true)
-    proxiedObject.proxy should be eq(proxy)
+    proxiedObject.proxy shouldEqual (proxy)
   }
 
   "Proxy of class with multiple constructors" should "be created" in {
@@ -21,14 +21,14 @@ class ProxyCreationTests extends BaseTests {
 
     proxiedObject should not be(null)
     proxiedObject.isProxied should be(true)
-    proxiedObject.proxy should be eq(proxy)
+    proxiedObject.proxy shouldEqual (proxy)
   }
 
   "Proxy instance" should "be accessible with proxy property of proxied object" in {
     val proxy = new DummyProxy()
     val proxiedPerson = ObjectFactory.createProxiedObject[EmptyClassWithDefaultCtor, Proxy](proxy)
 
-    proxiedPerson.proxy should be eq proxy
+    proxiedPerson.proxy shouldEqual proxy
   }
 
   "Nonproxied object" should "throw exception when proxy property is accessed" in {
