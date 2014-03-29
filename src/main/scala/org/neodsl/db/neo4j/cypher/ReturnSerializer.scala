@@ -16,7 +16,6 @@ object ReturnSerializer {
     val properties = mapper.getPropertyNames(node.nodeType)
     val objectName = resolver.name(node)
 
-    println("PROPS " + properties + "TYPE " + typeOf[node.type].typeSymbol.name.decoded)
     properties.map(objectName + "." + _).mkString(",")
   }
 }
