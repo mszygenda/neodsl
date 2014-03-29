@@ -3,7 +3,7 @@ package org.neodsl.tests.db.neo4j.cypher
 import org.neodsl.tests.BaseTests
 import org.neodsl.queries.SelectQuery
 import org.neodsl.queries.components.patterns.compositions.{NoPatterns, And}
-import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTripple}
+import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTriple}
 import org.neodsl.tests.dsl.PatternDomain.{Person, PersonWithId}
 import org.neodsl.dsl.patterns.PatternBuilder._
 import org.neodsl.queries.domain._
@@ -11,7 +11,7 @@ import org.neodsl.queries.components.conditions._
 import org.neodsl.db.neo4j.cypher.SelectSerializer
 import scala.collection.immutable.HashMap
 import org.neodsl.queries.components.patterns.NodePattern
-import org.neodsl.queries.components.patterns.PatternTripple
+import org.neodsl.queries.components.patterns.PatternTriple
 import org.neodsl.queries.components.patterns.compositions.And
 import org.neodsl.tests.dsl.PatternDomain.Person
 import org.neodsl.queries.domain.Relation
@@ -27,7 +27,7 @@ class SelectSerializerTests extends BaseTests {
   val fixedResolver = new FixedNameResolver(HashMap(john -> "john", friend -> "friend"))
 
   "Select query with single pattern and selected node" should "be serialized" in {
-    val pattern = PatternTripple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
+    val pattern = PatternTriple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
     val patterns = And(pattern, NoPatterns)
     val query = SelectQuery(List(friend), patterns, NoConditions)
 
@@ -43,7 +43,7 @@ class SelectSerializerTests extends BaseTests {
   }
 
   "Select query with single pattern and one condition" should "be serialized" in {
-    val pattern = PatternTripple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
+    val pattern = PatternTriple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
     val patterns = And(pattern, NoPatterns)
     val cond = PropertyComparison(ObjectPropertySelector(john, "age"), Gt, SimpleValueSelector(20))
     val query = SelectQuery(List(friend), patterns, cond)

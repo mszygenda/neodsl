@@ -1,7 +1,7 @@
 package org.neodsl.tests.queries
 
 import org.neodsl.tests.BaseTests
-import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTripple}
+import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTriple}
 import org.neodsl.queries.domain.{-->, Relation}
 import org.neodsl.tests.dsl.PatternDomain.Person
 import org.neodsl.queries.components.patterns.compositions.{NoPatterns, And}
@@ -19,7 +19,7 @@ class SelectQueryTests extends BaseTests {
   val fixedResolver = new FixedNameResolver(HashMap(friend -> "friend"))
 
   "SelectQuery#exec" should "map results into hashmap of domain objects" in {
-    val pattern = PatternTripple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
+    val pattern = PatternTriple(NodePattern(john), RelationPattern(Relation[Person, Person]("KNOWS", -->), Range(1, 1)), NodePattern(friend))
     val patterns = And(pattern, NoPatterns)
     val query = spy(SelectQuery(List(friend), patterns, NoConditions))
     when(query.nameResolver).thenReturn(fixedResolver)

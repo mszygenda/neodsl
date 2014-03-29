@@ -3,20 +3,20 @@ package org.neodsl.dsl.patterns
 import org.neodsl.queries.domain.TypedNode
 import scala.Null
 import scala.collection.immutable.HashMap
-import org.neodsl.queries.components.patterns.{NodePattern, RelationPattern, PatternTripple}
+import org.neodsl.queries.components.patterns.{NodePattern, RelationPattern, PatternTriple}
 import org.neodsl.queries.components.patterns.compositions.NoPatterns
 import org.neodsl.reflection.ObjectFactory
 
-class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTripple[T, U])
+class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTriple[T, U])
 {
-  def apply[V >: Null <: TypedNode[V]](buildPattern: U => PatternTripple[U, V])(implicit manifest: Manifest[U]) = {
+  def apply[V >: Null <: TypedNode[V]](buildPattern: U => PatternTriple[U, V])(implicit manifest: Manifest[U]) = {
     val obj = PatternBuilder.createInstance[U]
 
     pattern.copy(tail = buildPattern(obj))
   }
 
   def apply(connections: Range) = {
-    val PatternTripple(_, RelationPattern(relation, _), _) = pattern
+    val PatternTriple(_, RelationPattern(relation, _), _) = pattern
     val alteredRelationPattern = RelationPattern(relation, connections)
 
     new PatternBuilder(pattern.copy(relation = alteredRelationPattern))
@@ -26,15 +26,15 @@ class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val p
     pattern.copy(tail = NodePattern(nextNode))
   }
 
-  def apply[V >: Null <: TypedNode[V]](buildPattern: => PatternTripple[U, V]) = {
+  def apply[V >: Null <: TypedNode[V]](buildPattern: => PatternTriple[U, V]) = {
     pattern.copy(tail = buildPattern)
   }
 
-  def apply[V >: Null <: TypedNode[V]](nextPattern: PatternTripple[U, V]) = {
+  def apply[V >: Null <: TypedNode[V]](nextPattern: PatternTriple[U, V]) = {
     pattern.copy(tail = nextPattern)
   }
 
-  def and[W >: Null <: TypedNode[W], X >: Null <: TypedNode[X]](buildPattern: => PatternTripple[W, X]) = {
+  def and[W >: Null <: TypedNode[W], X >: Null <: TypedNode[X]](buildPattern: => PatternTriple[W, X]) = {
     NoPatterns and pattern and buildPattern
   }
 }

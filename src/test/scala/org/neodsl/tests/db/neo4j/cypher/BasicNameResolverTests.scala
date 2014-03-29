@@ -2,7 +2,7 @@ package org.neodsl.tests.db.neo4j.cypher
 
 import org.neodsl.tests.BaseTests
 import org.neodsl.tests.dsl.PatternDomain.Person
-import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTripple}
+import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTriple}
 import org.neodsl.db.neo4j.cypher.PatternSerializer
 import org.neodsl.queries.domain.{-->, Relation}
 import org.neodsl.dsl.patterns.PatternBuilder._

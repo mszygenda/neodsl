@@ -2,7 +2,7 @@ package org.neodsl.tests.dsl
 
 import org.neodsl.queries.domain.{Relation, -->}
 import org.neodsl.tests.BaseTests
-import org.neodsl.queries.components.patterns.{PatternTripple, RelationPattern, NodePattern}
+import org.neodsl.queries.components.patterns.{PatternTriple, RelationPattern, NodePattern}
 import org.neodsl.tests.dsl.PatternDomain.{Comment, Person}
 import org.neodsl.queries.components.patterns.compositions.{And, NoPatterns}
 
@@ -14,7 +14,7 @@ class PatternBuildingTests extends BaseTests {
   "One to one relation of concrete objects" should "be represented with single Relation Pattern element" in {
     val pattern = john knows friend
 
-    pattern should equal(PatternTripple(NodePattern(john), RelationPattern[Person, Person](Relation("KNOWS", -->), 1 to 1), NodePattern(friend)))
+    pattern should equal(PatternTriple(NodePattern(john), RelationPattern[Person, Person](Relation("KNOWS", -->), 1 to 1), NodePattern(friend)))
   }
 
   "Default number of connections between nodes" should "be one" in {

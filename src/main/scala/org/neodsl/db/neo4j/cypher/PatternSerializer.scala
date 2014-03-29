@@ -11,7 +11,7 @@ object PatternSerializer {
       case NodePattern(node) => {
         serializeNode(node, resolver)
       }
-      case PatternTripple(node, RelationPattern(rel, conn), tail) => {
+      case PatternTriple(node, RelationPattern(rel, conn), tail) => {
         serializeNode(node.node, resolver) + serializeRelation(rel, conn) + serialize(tail, resolver)
       }
     }
