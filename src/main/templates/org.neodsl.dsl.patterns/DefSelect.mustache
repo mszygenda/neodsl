@@ -1,0 +1,3 @@
+def select[{{#types}}{{name}} >: Null <: TypedNode[{{name}}]{{^isLast}}, {{/isLast}}{{/types}}]({{#types}}node{{name}}: {{name}}{{^isLast}}, {{/isLast}}{{/types}}) = {
+  new SelectQuery{{n}}[{{#types}}{{name}}{{^isLast}}, {{/isLast}}{{/types}}](List[Node]({{#types}}node{{name}}{{^isLast}}, {{/isLast}}{{/types}}), {{patternsParam}}, {{conditionsParam}})
+}

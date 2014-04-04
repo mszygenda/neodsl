@@ -7,7 +7,7 @@ import org.neodsl.reflection.{NodeObjectMapper, ObjectMapper}
 import org.neodsl.db.ExecutionEngine
 import scala.collection.immutable.HashMap
 
-case class SelectQuery(nodes: List[TypedNode[_]], patterns: PatternComposition, condition: Condition) extends Query {
+case class SelectQuery(nodes: List[Node], patterns: PatternComposition, condition: Condition) extends Query {
   def mapper: ObjectMapper = new NodeObjectMapper
 
   def exec(implicit engine: ExecutionEngine): Seq[Map[String, Node]] = {
@@ -33,7 +33,7 @@ case class SelectQuery(nodes: List[TypedNode[_]], patterns: PatternComposition, 
 
   private def allNodes = nodesOf(patterns)
 
-  private def nodesOf(patternComposition: PatternComposition): List[TypedNode[_]] = {
+  private def nodesOf(patternComposition: PatternComposition): List[Node] = {
     patternComposition match {
       case And(pattern, tail) => {
         pattern.nodes ++ nodesOf(tail)
