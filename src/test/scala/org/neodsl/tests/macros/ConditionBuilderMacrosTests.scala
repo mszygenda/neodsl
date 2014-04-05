@@ -99,4 +99,30 @@ class ConditionBuilderMacrosTests extends BaseTests {
 
     cond shouldEqual And(Or(fstPropComparison, sndPropComparison), Not(thrdPropComparison))
   }
+
+  "Property comparison with simple function parameter john.name == nameParam" should "be transformed to PropertyComparison(ObjectSelector, Eq, SimpleValueSelector)" in {
+    def someFun(nameParam: String): Condition = {
+      john.name == nameParam
+    }
+
+    someFun("john") shouldEqual PropertyComparison(ObjectPropertySelector(john, "name"), Eq, SimpleValueSelector("john"))
+  }
+
+  "Property comparison with variable john.name == nameVar" should "be transformed to PropertyComparison(ObjectSelector, Eq, SimpleValueSelector)" in {
+    var nameVar = "john"
+    val cond: Condition = john.name == nameVar
+
+    cond shouldEqual PropertyComparison(ObjectPropertySelector(john, "name"), Eq, SimpleValueSelector("john"))
+  }
+
+  "Property comparison with other object property which is not descendant of Node john.name == notNodeObj.name" should "be transformed to PropertyComparison(ObjectSelector, Eq, SimpleValueSelector)" in {
+    class NotNode {
+      val name: String = "john"
+    }
+
+    val notNodeObj = new NotNode()
+    val cond: Condition = john.name == notNodeObj.name
+
+    cond shouldEqual PropertyComparison(ObjectPropertySelector(john, "name"), Eq, SimpleValueSelector("john"))
+  }
 }

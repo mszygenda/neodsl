@@ -2,6 +2,7 @@ package org.neodsl.macros.ast.builders
 
 import org.neodsl.macros.ast.Operators
 import Operators._
+import org.neodsl.queries.domain.Node
 
 trait ConditionsCodeBuilder extends CodeBuilder {
   import context.universe._
@@ -51,18 +52,23 @@ trait ConditionsCodeBuilder extends CodeBuilder {
       case Apply(Select(predef, TermName("augmentString")), List(stringProp)) => {
         buildSelector(stringProp)
       }
-      case Select(propertySelector, TermName(property)) => {
-        buildObjectPropertySelector(propertySelector, property)
+      case Select(objectSelector, TermName(property)) => {
+        val objectExpr = context.Expr[Any](objectSelector)
+
+        if (objectExpr.actualType <:< typeOf[Node]) {
+            buildObjectPropertySelector(objectSelector, property)
+        } else {
+            buildSimpleValueSelector(operand)
+        }
+      }
+      case Ident(_) => {
+        buildSimpleValueSelector(operand)
       }
     }
   }
 
   protected def buildSimpleValueSelector(operand: Tree): Tree = {
-    operand match {
-      case Literal(Constant(lit: Any)) => {
-        applyTypedCaseClass(typeNames.SimpleValueSelector, List(operand.tpe), List(operand))
-      }
-    }
+    applyTypedCaseClass(typeNames.SimpleValueSelector, List(operand.tpe), List(operand))
   }
 
   protected def buildObjectPropertySelector(objectSelector: Tree, property: String): Tree = {
