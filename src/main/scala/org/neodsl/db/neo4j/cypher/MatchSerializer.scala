@@ -5,7 +5,10 @@ import org.neodsl.queries.NameResolver
 
 object MatchSerializer {
   def serialize(patternComp: PatternComposition, resolver: NameResolver): String = {
-    "%s %s" format (CypherKeywords.MATCH, serializeComposition(patternComp, resolver))
+    patternComp match {
+      case NoPatterns => ""
+      case _ => "%s %s" format (CypherKeywords.MATCH, serializeComposition (patternComp, resolver))
+    }
   }
 
   private def serializeComposition(patternComp: PatternComposition, resolver: NameResolver): String = {

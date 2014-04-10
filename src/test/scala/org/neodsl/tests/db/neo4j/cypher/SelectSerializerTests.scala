@@ -55,8 +55,21 @@ class SelectSerializerTests extends BaseTests {
         |MATCH john-[:KNOWS]->friend
         |WHERE john.age > 20
         |RETURN friend.id,friend.name
-      """.stripMargin
+      """.stripMargin.trim
 
-    serializer.serialize shouldEqual expectedQuery.trim
+    serializer.serialize shouldEqual expectedQuery
+  }
+
+  "Select query without matching part, but with node with id" should "be serialized" in {
+    val query = SelectQuery(List(john), NoPatterns, NoConditions)
+    val serializer = new SelectSerializer(query, fixedResolver)
+
+    val expectedQuery =
+      """
+        |START john=node(1)
+        |RETURN john.id,john.name
+      """.stripMargin.trim
+
+    serializer.serialize shouldEqual expectedQuery
   }
 }

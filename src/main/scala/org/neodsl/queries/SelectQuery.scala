@@ -31,7 +31,20 @@ case class SelectQuery(nodes: List[Node], patterns: PatternComposition, conditio
     })
   }
 
-  private def allNodes = nodesOf(patterns)
+  private def allNodes = {
+    uniqueObjects(nodesOf(patterns) ++ nodes)
+  }
+
+  private def uniqueObjects(nodes: List[Node]): List[Node] = {
+    nodes match {
+      case node :: tail => {
+        node :: uniqueObjects(tail.filterNot(_.eq(node)))
+      }
+      case Nil => {
+        Nil
+      }
+    }
+  }
 
   private def nodesOf(patternComposition: PatternComposition): List[Node] = {
     patternComposition match {
