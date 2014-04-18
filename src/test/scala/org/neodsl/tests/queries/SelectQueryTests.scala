@@ -31,20 +31,4 @@ class SelectQueryTests extends BaseTests {
 
     results.head shouldEqual Map("friend" -> Person("Friend result"))
   }
-
-  private def mockResultItem(hashMap: Map[String, Any]) = {
-    val resultItemMock = mock[ResultItem]
-
-    when(resultItemMock.getObjectMap(anyString())).thenReturn(hashMap)
-
-    resultItemMock
-  }
-
-  private def mockExecutionEngine(results: List[ResultItem]) = {
-    val execEngineMock = mock[ExecutionEngine]
-
-    when(execEngineMock.execute(any[Query])).thenReturn(results)
-
-    execEngineMock
-  }
 }
