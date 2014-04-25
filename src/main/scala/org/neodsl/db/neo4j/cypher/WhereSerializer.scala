@@ -42,17 +42,7 @@ object WhereSerializer {
         "%s.%s" format (resolver.name(obj), property)
       }
       case SimpleValueSelector(value) => {
-        value match {
-          case _: String | _: Char => {
-            "'%s'" format (value)
-          }
-          case _: Long | _: Int | _: Double | _: Short | _: Byte | _: Float => {
-            "%s" format(value)
-          }
-          case _ => {
-            throw new UnsupportedSimpleValueTypeException(value.getClass)
-          }
-        }
+        SimpleValueSerializer.serialize(value)
       }
     }
   }

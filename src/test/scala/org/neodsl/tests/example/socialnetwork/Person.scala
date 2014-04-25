@@ -4,10 +4,7 @@ import org.neodsl.dsl.domain.{DomainCompanionObject, DomainObject}
 import org.neodsl.dsl.patterns.PatternBuilder._
 import Database._
 
-class Person extends DomainObject[Person] {
-  val name: String = null
-  val surname: String = null
-
+case class Person(name: String) extends DomainObject[Person] {
   val knows = -->[Person]("KNOWS")
   val likes = -->[Likeable]("LIKES")
   val wrote = -->[Comment]("WROTE")

@@ -6,6 +6,7 @@ import org.neodsl.db.neo4j.cypher.StartSerializer
 import scala.collection.immutable.HashMap
 import org.neodsl.db.neo4j.cypher.exceptions.InvalidStartNodeException
 import org.neodsl.tests.dsl.PatternDomain.{PersonWithId, Person}
+import org.neodsl.reflection.ObjectFactory
 
 class NodeWithoutId extends TypedNode[NodeWithoutId] {
   val id: Option[Long] = None
@@ -26,14 +27,21 @@ class StartSerializerTests extends BaseTests {
   }
 
   "START with two nodes with ids" should "be serialized" in {
-    val validNodes = List(john, friend)
+    val nodesWithDefinedId = List(john, friend)
 
-    StartSerializer.serialize(validNodes, fixedResolver) shouldEqual "START john=node(1),friend=node(2)"
+    StartSerializer.serialize(nodesWithDefinedId, fixedResolver) shouldEqual "START john=node(1),friend=node(2)"
   }
 
   "START with single node with id" should "be serialized" in {
-    val validNode = List(john)
+    val nodeWithDefinedId = List(john)
 
-    StartSerializer.serialize(validNode, fixedResolver) shouldEqual "START john=node(1)"
+    StartSerializer.serialize(nodeWithDefinedId, fixedResolver) shouldEqual "START john=node(1)"
+  }
+
+  "START with index placeholders (on name property)" should "be serialized" in {
+    val indexPlaceholder = ObjectFactory.createIndexPlaceholder[PersonWithId]("persons", "name" -> "John")
+    val fixedResolver = new FixedNameResolver(HashMap(indexPlaceholder -> "person"))
+
+    StartSerializer.serialize(List(indexPlaceholder), fixedResolver) shouldEqual "START person=node:persons(name='John')"
   }
 }

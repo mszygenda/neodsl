@@ -6,6 +6,7 @@ import org.neodsl.queries.domain.{Node, TypedNode}
 import org.neodsl.reflection.{NodeObjectMapper, ObjectMapper}
 import org.neodsl.db.ExecutionEngine
 import scala.collection.immutable.HashMap
+import org.neodsl.reflection.proxy.IndexPlaceholderProxy
 
 case class SelectQuery(nodes: List[Node], patterns: PatternComposition, condition: Condition) extends Query {
   def mapper: ObjectMapper = new NodeObjectMapper
@@ -25,10 +26,16 @@ case class SelectQuery(nodes: List[Node], patterns: PatternComposition, conditio
   }
 
   def startNodes = {
-    allNodes.filter(_.id match {
-      case Some(_) => true
-      case None => false
-    })
+    allNodes.filter(node =>
+      node.id match {
+        case Some(_) => true
+        case None => isIndexPlaceholder(node)
+      }
+    )
+  }
+
+  private def isIndexPlaceholder(node: Node): Boolean = {
+    node.isProxied && node.proxy.isInstanceOf[IndexPlaceholderProxy]
   }
 
   private def allNodes = {

@@ -4,9 +4,7 @@ import org.neodsl.dsl.domain.DomainObject
 import org.neodsl.dsl.patterns.PatternBuilder._
 import Database._
 
-class Comment extends DomainObject[Comment] with Likeable {
-  val content: String = null
-
+case class Comment(content: String) extends DomainObject[Comment] with Likeable {
   val writtenBy = <--[Person]("WROTE")
 }
 

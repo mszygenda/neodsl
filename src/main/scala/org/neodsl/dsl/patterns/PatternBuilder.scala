@@ -10,7 +10,7 @@ import org.neodsl.reflection.ObjectFactory
 class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTriple[T, U])
 {
   def apply[V >: Null <: TypedNode[V]](buildPattern: U => PatternTriple[U, V])(implicit manifest: Manifest[U]) = {
-    val obj = PatternBuilder.createInstance[U]
+    val obj = PatternBuilder.anonymous[U]
 
     pattern.copy(tail = buildPattern(obj))
   }
@@ -54,11 +54,15 @@ object PatternBuilder {
 
   def placeholder[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = anonymous[T]
 
-  def anonymous[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = {
-    createInstance[T]
+  def anonymous[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]): T = {
+    ObjectFactory.createAnonymousPlaceholderObject[T]
   }
 
-  private def createInstance[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]): T = {
-    ObjectFactory.createPlaceholderObject[T]
+  def autoIndex[T >: Null <: TypedNode[T]](idxValue: (String, Any))(implicit manifest: Manifest[T]): T = {
+    index[T]("node_auto_index", idxValue)
+  }
+
+  def index[T >: Null <: TypedNode[T]](name: String, idxValue: (String, Any))(implicit manifest: Manifest[T]): T = {
+    ObjectFactory.createIndexPlaceholder[T](name, idxValue)
   }
 }

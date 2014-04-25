@@ -8,7 +8,7 @@ import net.sf.cglib.proxy.MethodProxy
  *
  * It alters equals method so it returns true only for the same instances of placeholders
  */
-class PlaceholderProxy extends Proxy {
+trait PlaceholderProxy extends Proxy {
   override def intercept(obj: AnyRef, method: Method, args: Array[AnyRef], proxy: MethodProxy): AnyRef = {
     method.getName match {
       case "equals" => {
