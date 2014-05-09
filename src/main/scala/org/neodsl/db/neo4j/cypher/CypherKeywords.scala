@@ -16,6 +16,8 @@ object CypherKeywords {
   val relLeftDir = "<-"
   val relRightDir = "->"
   val relNoDir = "-"
+  val namedRelNoDirOpen = relNoDir + namedRelOpen
+  val namedRelNoDirClose = namedRelClose + relNoDir
   val namedRelLeftOpen = relLeftDir + namedRelOpen
   val namedRelLeftClose = namedRelClose + relNoDir
   val namedRelRightOpen = relNoDir + namedRelOpen

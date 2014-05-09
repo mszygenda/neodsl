@@ -29,6 +29,9 @@ object PatternSerializer {
       case --> => {
         namedRelRightOpen + rel.name + connections(conn) + namedRelRightClose
       }
+      case -- => {
+        namedRelNoDirOpen + rel.name + connections(conn) + namedRelNoDirClose
+      }
     }
   }
 

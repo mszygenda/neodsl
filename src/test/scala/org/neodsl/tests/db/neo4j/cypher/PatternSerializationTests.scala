@@ -3,7 +3,7 @@ package org.neodsl.tests.db.neo4j.cypher
 import org.neodsl.tests.BaseTests
 import org.neodsl.queries.components.patterns.{RelationPattern, NodePattern, PatternTriple}
 import org.neodsl.tests.dsl.PatternDomain.Person
-import org.neodsl.queries.domain.{<--, -->, Relation}
+import org.neodsl.queries.domain.{--, <--, -->, Relation}
 import org.neodsl.db.neo4j.cypher.PatternSerializer
 import scala.collection.immutable.HashMap
 
@@ -11,6 +11,7 @@ class PatternSerializationTests extends BaseTests {
   val john = Person("John")
   val friend = Person("Friend")
   val knows = Relation[Person, Person]("KNOWS", -->)
+  val knowsNoDir = Relation[Person, Person]("KNOWS", --)
   val isKnownBy = Relation[Person, Person]("KNOWS", <--)
   val nameResolver = new FixedNameResolver(HashMap(john -> "john", friend -> "friend"))
 
@@ -40,5 +41,19 @@ class PatternSerializationTests extends BaseTests {
     val cypher = PatternSerializer.serialize(tripple, nameResolver)
 
     cypher shouldEqual("john<-[:KNOWS*2..5]-friend")
+  }
+
+  "1 to 1 relation with no direction" should "be serialized to Cypher" in {
+    val tripple = PatternTriple(NodePattern(john), RelationPattern(knowsNoDir, Range(1, 1)), NodePattern(friend))
+    val cypher = PatternSerializer.serialize(tripple, nameResolver)
+
+    cypher shouldEqual("john-[:KNOWS]-friend")
+  }
+
+  "Variable connections relation with no direction" should "be serialized to Cypher" in {
+    val tripple = PatternTriple(NodePattern(john), RelationPattern(knowsNoDir, Range(2, 5)), NodePattern(friend))
+    val cypher = PatternSerializer.serialize(tripple, nameResolver)
+
+    cypher shouldEqual("john-[:KNOWS*2..5]-friend")
   }
 }

@@ -5,7 +5,7 @@ import org.neodsl.dsl.patterns.PatternBuilder._
 import Database._
 
 case class Person(name: String) extends DomainObject[Person] {
-  val knows = -->[Person]("KNOWS")
+  val knows = --[Person]("KNOWS")
   val likes = -->[Likeable]("LIKES")
   val wrote = -->[Comment]("WROTE")
 }
@@ -27,7 +27,7 @@ object Person extends DomainCompanionObject[Person] {
 
   def fof(person: Person): Seq[Person] = {
     val fof = p[Person]
-    val q = { person knows (_ knows fof) } select(fof)
+    val q = { person knows { some[Person] knows fof } } select(fof)
 
     q.exec(f => f)
   }
