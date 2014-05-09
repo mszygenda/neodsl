@@ -6,22 +6,35 @@ import scala.collection.immutable.HashMap
 import org.neodsl.db.neo4j.cypher.ReturnSerializer
 import org.neodsl.reflection.{NodeObjectMapper, ObjectMapper}
 import org.neodsl.queries.domain.Node
+import org.neodsl.tests.db.neo4j.PersonWithId
 
 class ReturnSerializerTests extends BaseTests {
   val john = Person("John")
   val friend = Person("Friend")
-  val fixedResolver = new FixedNameResolver(HashMap(john -> "john", friend -> "friend"))
+  val personWithId = PersonWithId(Some(1), "I have id")
   val mapper: ObjectMapper = new NodeObjectMapper()
 
-  "Return single node" should "be serialized" in {
-    val nodes: List[Node] = List(john)
+  val fixedResolver = new FixedNameResolver(
+    HashMap(
+      john -> "john",
+      friend -> "friend",
+      personWithId -> "personWithId"
+    )
+  )
 
-    ReturnSerializer.serialize(nodes, fixedResolver, mapper) shouldEqual "RETURN john.id,john.name"
+  "Return single node" should "be serialized" in {
+
+    val nodes: List[Node] = List(john)
+    ReturnSerializer.serialize(nodes, fixedResolver, mapper) shouldEqual "RETURN id(john) AS `john.id`,john.name"
   }
 
   "Return two nodes" should "be serialized" in {
-    val nodes: List[Node] = List(john, friend)
 
-    ReturnSerializer.serialize(nodes, fixedResolver, mapper) shouldEqual "RETURN john.id,john.name,friend.id,friend.name"
+    val nodes: List[Node] = List(john, friend)
+    ReturnSerializer.serialize(nodes, fixedResolver, mapper) shouldEqual "RETURN id(john) AS `john.id`,john.name,id(friend) AS `friend.id`,friend.name"
+  }
+
+  "id property" should "be handled in exceptional way" in {
+    ReturnSerializer.serialize(List(personWithId), fixedResolver, mapper) shouldEqual "RETURN id(personWithId) AS `personWithId.id`,personWithId.name"
   }
 }

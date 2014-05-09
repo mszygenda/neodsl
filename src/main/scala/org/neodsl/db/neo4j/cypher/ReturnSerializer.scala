@@ -15,6 +15,17 @@ object ReturnSerializer {
     val properties = mapper.getPropertyNames(node.nodeType)
     val objectName = resolver.name(node)
 
-    properties.map(objectName + "." + _).mkString(",")
+    properties.map(getPropertySelector(objectName, _)).mkString(",")
+  }
+
+  private def getPropertySelector(objName: String, propertyName: String) = {
+    propertyName match {
+      case "id" => {
+        "id(%s) AS `%s.id`" format (objName, objName)
+      }
+      case _ => {
+        objName + "." + propertyName
+      }
+    }
   }
 }

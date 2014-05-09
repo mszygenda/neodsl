@@ -36,7 +36,7 @@ class SelectSerializerTests extends BaseTests {
       """
         |START john=node(1)
         |MATCH john-[:KNOWS]->friend
-        |RETURN friend.id,friend.name
+        |RETURN id(friend) AS `friend.id`,friend.name
       """.stripMargin
 
     serializer.serialize shouldEqual expectedQuery.trim
@@ -54,7 +54,7 @@ class SelectSerializerTests extends BaseTests {
         |START john=node(1)
         |MATCH john-[:KNOWS]->friend
         |WHERE john.age > 20
-        |RETURN friend.id,friend.name
+        |RETURN id(friend) AS `friend.id`,friend.name
       """.stripMargin.trim
 
     serializer.serialize shouldEqual expectedQuery
@@ -67,7 +67,7 @@ class SelectSerializerTests extends BaseTests {
     val expectedQuery =
       """
         |START john=node(1)
-        |RETURN john.id,john.name
+        |RETURN id(john) AS `john.id`,john.name
       """.stripMargin.trim
 
     serializer.serialize shouldEqual expectedQuery
