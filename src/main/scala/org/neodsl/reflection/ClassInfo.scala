@@ -5,6 +5,14 @@ import scala.reflect.runtime.universe._
 class ClassInfo(val classType: Type, classLoader: Mirror) {
   private val classMirror = classLoader.reflectClass(classType.typeSymbol.asClass)
 
+  lazy val fullName: String = {
+    javaClass.getName
+  }
+
+  lazy val javaClass: Class[_] = {
+    classLoader.runtimeClass(classType)
+  }
+
   def property(name: String): Option[Property] = {
     properties.find(_.name == name)
   }
@@ -25,6 +33,12 @@ class ClassInfo(val classType: Type, classLoader: Mirror) {
       term.accessed.asTerm,
       classLoader
     )).toList
+  }
+
+  lazy val defaultOrMainCtor: Constructor = {
+    ctors.find(_.isDefault).getOrElse {
+      mainCtor
+    }
   }
 
   lazy val mainCtor: Constructor = {

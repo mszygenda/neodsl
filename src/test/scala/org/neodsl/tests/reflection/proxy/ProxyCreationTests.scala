@@ -8,7 +8,7 @@ import org.neodsl.reflection.ObjectFactory
 class ProxyCreationTests extends BaseTests {
   "Proxy of empty class with default constructor" should "be created" in {
     val proxy = new DummyProxy()
-    val proxiedObject = ObjectFactory.createProxiedObject[EmptyClassWithDefaultCtor, DummyProxy](proxy)
+    val proxiedObject = ProxyFactory.createProxiedObject[EmptyClassWithDefaultCtor](proxy)
 
     proxiedObject should not be(null)
     proxiedObject.isProxied should be(true)
@@ -17,7 +17,7 @@ class ProxyCreationTests extends BaseTests {
 
   "Proxy of class with multiple constructors" should "be created" in {
     val proxy = new DummyProxy()
-    val proxiedObject = ObjectFactory.createProxiedObject[ClassWithMultipleCtors, DummyProxy](proxy)
+    val proxiedObject = ProxyFactory.createProxiedObject[ClassWithMultipleCtors](proxy)
 
     proxiedObject should not be(null)
     proxiedObject.isProxied should be(true)
@@ -26,7 +26,7 @@ class ProxyCreationTests extends BaseTests {
 
   "Proxy instance" should "be accessible with proxy property of proxied object" in {
     val proxy = new DummyProxy()
-    val proxiedPerson = ObjectFactory.createProxiedObject[EmptyClassWithDefaultCtor, Proxy](proxy)
+    val proxiedPerson = ProxyFactory.createProxiedObject[EmptyClassWithDefaultCtor](proxy)
 
     proxiedPerson.proxy shouldEqual proxy
   }

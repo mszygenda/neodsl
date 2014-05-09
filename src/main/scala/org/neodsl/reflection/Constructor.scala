@@ -6,6 +6,12 @@ class Constructor(methodSymbol: MethodSymbol, classMirror: ClassMirror, classLoa
   val isPrimary = methodSymbol.isPrimaryConstructor
   val isDefault = methodSymbol.paramss.isEmpty || methodSymbol.paramss.head.isEmpty
 
+  val paramTypes = {
+    val paramList = methodSymbol.paramss.head
+
+    paramList.map(param => classLoader.runtimeClass(param.typeSignature))
+  }
+
   def callWithDefaults(): Any = {
     call(Map())
   }

@@ -6,6 +6,7 @@ import scala.collection.immutable.HashMap
 import org.neodsl.queries.components.patterns.{NodePattern, RelationPattern, PatternTriple}
 import org.neodsl.queries.components.patterns.compositions.NoPatterns
 import org.neodsl.reflection.ObjectFactory
+import org.neodsl.reflection.proxy.ProxyFactory
 
 class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTriple[T, U])
 {
@@ -55,7 +56,7 @@ object PatternBuilder {
   def placeholder[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) = anonymous[T]
 
   def anonymous[T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]): T = {
-    ObjectFactory.createAnonymousPlaceholderObject[T]
+    ProxyFactory.createAnonymousPlaceholder[T]
   }
 
   def autoIndex[T >: Null <: TypedNode[T]](idxValue: (String, Any))(implicit manifest: Manifest[T]): T = {
@@ -63,6 +64,6 @@ object PatternBuilder {
   }
 
   def index[T >: Null <: TypedNode[T]](name: String, idxValue: (String, Any))(implicit manifest: Manifest[T]): T = {
-    ObjectFactory.createIndexPlaceholder[T](name, idxValue)
+    ProxyFactory.createIndexPlaceholder[T](name, idxValue)
   }
 }
