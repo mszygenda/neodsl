@@ -3,7 +3,7 @@ package org.neodsl.db.neo4j.cypher
 import org.neodsl.queries.domain.Node
 import org.neodsl.db.neo4j.cypher.exceptions.InvalidStartNodeException
 import org.neodsl.queries.NameResolver
-import org.neodsl.reflection.proxy.IndexPlaceholderProxy
+import org.neodsl.instrumentation.proxies.IndexPlaceholderProxy
 
 object StartSerializer {
   def serialize(nodes: List[Node], resolver: NameResolver): String = {

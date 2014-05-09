@@ -1,4 +1,4 @@
-package org.neodsl.reflection.proxy
+package org.neodsl.instrumentation.proxies
 
 import java.lang.reflect.Method
 import net.sf.cglib.proxy.MethodProxy

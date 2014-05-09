@@ -2,11 +2,9 @@ package org.neodsl.dsl.patterns
 
 import org.neodsl.queries.domain.TypedNode
 import scala.Null
-import scala.collection.immutable.HashMap
 import org.neodsl.queries.components.patterns.{NodePattern, RelationPattern, PatternTriple}
 import org.neodsl.queries.components.patterns.compositions.NoPatterns
-import org.neodsl.reflection.ObjectFactory
-import org.neodsl.reflection.proxy.ProxyFactory
+import org.neodsl.instrumentation.ProxyFactory
 
 class PatternBuilder[T >: Null <: TypedNode[T], U >: Null <: TypedNode[U]](val pattern: PatternTriple[T, U])
 {

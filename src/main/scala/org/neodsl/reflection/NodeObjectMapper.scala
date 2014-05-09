@@ -1,7 +1,5 @@
 package org.neodsl.reflection
 
-import scala.collection.immutable.HashMap
-import org.neodsl.reflection.proxy.Proxyable
 import scala.reflect.runtime.universe._
 
 class NodeObjectMapper extends ObjectMapper {

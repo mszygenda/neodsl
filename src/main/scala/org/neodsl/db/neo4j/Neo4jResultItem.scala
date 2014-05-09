@@ -1,7 +1,6 @@
 package org.neodsl.db.neo4j
 
 import org.neodsl.db.ResultItem
-import scala.collection.immutable.HashMap
 
 case class Neo4jResultItem(properties: Map[String, Any]) extends ResultItem {
   override def getObjectProperty(objectName: String, property: String): Any = {

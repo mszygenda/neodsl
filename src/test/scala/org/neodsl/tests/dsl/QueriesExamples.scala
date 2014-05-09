@@ -15,6 +15,6 @@ class QueriesExamples extends BaseTests {
     { john knows friend } and
     { john likes { comment writtenBy friend } } where {
       friend.name == "Matthew"
-    } select(friend, comment)
+    } select(friend, comment, john)
   }
 }

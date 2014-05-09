@@ -1,6 +1,5 @@
 package org.neodsl.reflection
 import scala.reflect.runtime.universe._
-import org.neodsl.reflection.proxy.Proxyable
 
 class Property(fieldTerm: TermSymbol, classLoader: Mirror) {
   val name = fieldTerm.name.decoded.trim

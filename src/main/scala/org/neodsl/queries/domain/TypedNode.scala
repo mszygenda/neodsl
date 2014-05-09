@@ -1,7 +1,7 @@
 package org.neodsl.queries.domain
 
-import org.neodsl.reflection.proxy.Proxyable
 import scala.reflect.runtime.universe._
+import org.neodsl.instrumentation.Proxyable
 
 trait Node extends Proxyable {
   val id: Option[Long]
@@ -9,5 +9,5 @@ trait Node extends Proxyable {
 }
 
 abstract class TypedNode[+T >: Null <: TypedNode[T]](implicit manifest: Manifest[T]) extends Node {
-  val nodeType: Type = typeOf[T]
+  override lazy val nodeType: Type = typeOf[T]
 }

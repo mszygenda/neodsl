@@ -1,9 +1,7 @@
 package org.neodsl.tests.reflection.proxy
 
 import org.neodsl.tests.BaseTests
-import org.neodsl.queries.domain.TypedNode
-import org.neodsl.reflection.proxy.{ProxyFactory, Proxyable}
-import org.neodsl.reflection.ObjectFactory
+import org.neodsl.instrumentation.{ProxyFactory, Proxyable}
 
 class Communist extends Proxyable {
   override def equals(obj: Any) = true

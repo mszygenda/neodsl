@@ -1,11 +1,12 @@
-package org.neodsl.reflection.proxy
+package org.neodsl.instrumentation
 
 import net.sf.cglib.proxy.{Factory, Enhancer}
 import org.neodsl.reflection.ClassInfoFactory
 import scala.collection.mutable
+import org.neodsl.instrumentation.proxies.{IndexPlaceholderProxy, DummyProxy, AnonymousPlaceholderProxy}
 
 object ProxyFactory {
-  type ProxyCreator = Proxy => Any
+  type ProxyCreator = proxies.Proxy => Any
   private val proxyCache = mutable.HashMap[String, ProxyCreator]()
 
   def createIndexPlaceholder[P <: Proxyable](name: String, indexVal: Tuple2[String, Any])(implicit manifest: Manifest[P]): P = {
@@ -20,7 +21,7 @@ object ProxyFactory {
     createProxiedObject[P](placeholderProxy)
   }
 
-  def createProxiedObject[P <: Proxyable](proxy: Proxy)(implicit manifest: Manifest[P]): P = {
+  def createProxiedObject[P <: Proxyable](proxy: proxies.Proxy)(implicit manifest: Manifest[P]): P = {
     val proxyCreator = getProxyCreator[P]
     
     proxyCreator(proxy).asInstanceOf[P]
@@ -44,7 +45,7 @@ object ProxyFactory {
 
     enhancer.create(ctorParamTypes.toArray, ctorParamDefaults.toArray) match {
       case factory: Factory => {
-        (proxy: Proxy) => {
+        (proxy: proxies.Proxy) => {
           factory.newInstance(ctorParamTypes.toArray, ctorParamDefaults.toArray, Array(proxy))
         }
       }

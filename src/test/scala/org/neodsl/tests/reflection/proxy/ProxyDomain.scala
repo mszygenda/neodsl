@@ -1,6 +1,7 @@
 package org.neodsl.tests.reflection.proxy
 
-import org.neodsl.reflection.proxy.{Proxy, Proxyable}
+import org.neodsl.instrumentation.Proxyable
+import org.neodsl.instrumentation.proxies.Proxy
 
 object ProxyDomain {
   class DummyProxy extends Proxy

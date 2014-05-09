@@ -2,11 +2,10 @@ package org.neodsl.queries
 
 import org.neodsl.queries.components.patterns.compositions.{NoPatterns, And, PatternComposition}
 import org.neodsl.queries.components.conditions.Condition
-import org.neodsl.queries.domain.{Node, TypedNode}
+import org.neodsl.queries.domain.Node
 import org.neodsl.reflection.{NodeObjectMapper, ObjectMapper}
 import org.neodsl.db.ExecutionEngine
-import scala.collection.immutable.HashMap
-import org.neodsl.reflection.proxy.IndexPlaceholderProxy
+import org.neodsl.instrumentation.proxies.IndexPlaceholderProxy
 
 case class SelectQuery(nodes: List[Node], patterns: PatternComposition, condition: Condition) extends Query {
   def mapper: ObjectMapper = new NodeObjectMapper

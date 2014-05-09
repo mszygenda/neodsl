@@ -1,4 +1,6 @@
-package org.neodsl.reflection.proxy
+package org.neodsl.instrumentation
+
+import org.neodsl.instrumentation.proxies.Proxy
 
 trait Proxyable {
   def proxy: Proxy = {

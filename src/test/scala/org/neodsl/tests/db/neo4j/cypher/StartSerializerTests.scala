@@ -6,7 +6,7 @@ import org.neodsl.db.neo4j.cypher.StartSerializer
 import scala.collection.immutable.HashMap
 import org.neodsl.db.neo4j.cypher.exceptions.InvalidStartNodeException
 import org.neodsl.tests.dsl.PatternDomain.{PersonWithId, Person}
-import org.neodsl.reflection.proxy.ProxyFactory
+import org.neodsl.instrumentation.ProxyFactory
 
 class NodeWithoutId extends TypedNode[NodeWithoutId] {
   val id: Option[Long] = None

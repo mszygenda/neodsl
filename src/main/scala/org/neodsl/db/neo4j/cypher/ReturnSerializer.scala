@@ -1,8 +1,7 @@
 package org.neodsl.db.neo4j.cypher
 
-import org.neodsl.queries.domain.{Node, TypedNode}
+import org.neodsl.queries.domain.Node
 import org.neodsl.reflection.ObjectMapper
-import scala.reflect.runtime.universe._
 import org.neodsl.queries.NameResolver
 
 object ReturnSerializer {
