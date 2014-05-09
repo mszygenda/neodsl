@@ -7,9 +7,14 @@ import org.neodsl.reflection.proxy.IndexPlaceholderProxy
 
 object StartSerializer {
   def serialize(nodes: List[Node], resolver: NameResolver): String = {
-    val startNames = nodes.map(nodeAlias(_, resolver))
+    nodes match {
+      case Nil => ""
+      case _ => {
+        val startNames = nodes.map(nodeAlias(_, resolver))
 
-    "%s %s" format (CypherKeywords.START, startNames.mkString(","))
+        "%s %s" format(CypherKeywords.START, startNames.mkString(","))
+      }
+    }
   }
 
   private def nodeAlias(node: Node, resolver: NameResolver): String = {
