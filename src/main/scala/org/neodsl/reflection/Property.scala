@@ -2,7 +2,7 @@ package org.neodsl.reflection
 import scala.reflect.runtime.universe._
 
 class Property(fieldTerm: TermSymbol, classLoader: Mirror) {
-  val name = fieldTerm.name.decoded.trim
+  val name = fieldTerm.name.decodedName.toString.trim
 
   val isOption = {
     val optionType = typeOf[Option[Any]]

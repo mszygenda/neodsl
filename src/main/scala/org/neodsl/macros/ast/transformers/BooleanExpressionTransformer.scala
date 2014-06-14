@@ -1,6 +1,6 @@
 package org.neodsl.macros.ast.transformers
 
-import scala.reflect.macros.Context
+import scala.reflect.macros.blackbox.Context
 import org.neodsl.macros.ast.Operators
 import Operators._
 

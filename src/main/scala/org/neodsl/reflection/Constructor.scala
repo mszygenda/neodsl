@@ -4,11 +4,11 @@ import scala.collection.mutable
 
 class Constructor(methodSymbol: MethodSymbol, classMirror: ClassMirror, classLoader: Mirror) {
   private val ctorMirror = classMirror.reflectConstructor(methodSymbol)
-  private val fstParamList = methodSymbol.paramss.head
+  private val fstParamList = methodSymbol.paramLists.head
   private val defaultParamValuesCache = mutable.HashMap[String, Any]()
 
   val isPrimary = methodSymbol.isPrimaryConstructor
-  val isDefault = methodSymbol.paramss.isEmpty || methodSymbol.paramss.head.isEmpty
+  val isDefault = methodSymbol.paramLists.isEmpty || methodSymbol.paramLists.head.isEmpty
 
   val paramTypes = {
     fstParamList.map(param => classLoader.runtimeClass(param.typeSignature))
@@ -20,7 +20,7 @@ class Constructor(methodSymbol: MethodSymbol, classMirror: ClassMirror, classLoa
 
   def call(paramsMap: Map[String, Any]): Any = {
     val params = for (param <- fstParamList) yield {
-      paramsMap.getOrElse(param.name.decoded, {
+      paramsMap.getOrElse(param.name.decodedName.toString, {
         getDefaultValueFor(param)
       })
     }
@@ -29,7 +29,7 @@ class Constructor(methodSymbol: MethodSymbol, classMirror: ClassMirror, classLoa
   }
 
   private def getDefaultValueFor(param: Symbol): Any = {
-    defaultParamValuesCache.getOrElseUpdate(param.name.decoded, {
+    defaultParamValuesCache.getOrElseUpdate(param.name.decodedName.toString, {
       calculateDefaultValueFor(param)
     })
   }
@@ -48,7 +48,7 @@ class Constructor(methodSymbol: MethodSymbol, classMirror: ClassMirror, classLoa
     } else if (typeSignature.<:<(typeOf[Double])) {
       0.0
     } else if (typeSignature.<:<(typeOf[Char])) {
-      '\0'
+      0.toChar
     } else if (typeSignature.<:<(typeOf[Byte])) {
       0.toByte
     } else if (typeSignature.<:<(typeOf[Boolean])) {

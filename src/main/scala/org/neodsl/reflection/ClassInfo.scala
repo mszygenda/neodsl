@@ -46,7 +46,7 @@ class ClassInfo(val classType: Type, classLoader: Mirror) {
   }
 
   lazy val ctors: List[Constructor] = {
-    val symbolList = classType.declaration(nme.CONSTRUCTOR).asTerm.alternatives
+    val symbolList = classType.decl(termNames.CONSTRUCTOR).asTerm.alternatives
 
     symbolList.map(symbol => new Constructor(symbol.asMethod, classMirror, classLoader))
   }

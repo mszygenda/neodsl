@@ -1,6 +1,6 @@
 package org.neodsl.macros.ast.builders
 
-import scala.reflect.macros.Context
+import scala.reflect.macros.blackbox.Context
 
 trait CodeBuilder {
   val context: Context
@@ -28,10 +28,10 @@ trait CodeBuilder {
     def select(terms: List[String]): Tree = {
       terms match {
         case leastImportant :: Nil => {
-          Ident(leastImportant)
+          Ident(TermName(leastImportant))
         }
         case qualifier :: tail => {
-          Select(select(tail), qualifier)
+          Select(select(tail), TermName(qualifier))
         }
         case Nil => {
           throw new Exception("Invalid term name")

@@ -2,10 +2,11 @@ org.scalastyle.sbt.ScalastylePlugin.Settings
 
 name := "neodsl"
 
-scalaVersion := "2.11.0-M7"
+scalaVersion := "2.11.1"
 
 // Uncomment to enable displaying macro expansions during build
 // scalacOptions += "-Ymacro-debug-lite"
+scalacOptions += "-deprecation"
 
 scalacOptions ++= Seq(
   "-language:implicitConversions",
@@ -18,8 +19,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % "2.11.0-M7",
-  "org.scala-lang" % "scala-library" % "2.11.0-M7",
+  "org.scala-lang" % "scala-reflect" % "2.11.1",
+  "org.scala-lang" % "scala-library" % "2.11.1",
   "cglib" % "cglib" % "3.1",
   "org.neo4j" % "neo4j-rest-graphdb" % "2.0.1",
   "com.sun.jersey" % "jersey-core" % "1.9",

@@ -26,11 +26,11 @@ object ObjectFactory {
   }
 
   private def defaultCtor(classType: Type): Option[MethodSymbol] = {
-    ctors(classType).find(ctor => ctor.paramss.isEmpty || ctor.paramss.head.isEmpty)
+    ctors(classType).find(ctor => ctor.paramLists.isEmpty || ctor.paramLists.head.isEmpty)
   }
 
   private def ctors(classType: Type) = {
-    val symbolList = classType.declaration(nme.CONSTRUCTOR).asTerm.alternatives
+    val symbolList = classType.decl(termNames.CONSTRUCTOR).asTerm.alternatives
 
     symbolList.map(_.asMethod)
   }
@@ -40,8 +40,8 @@ object ObjectFactory {
     val classMirror = classLoader.reflectClass(objClass)
     val ctorMirror = classMirror.reflectConstructor(ctor)
 
-    val params = for (param <- ctor.paramss.head) yield {
-      ctorParams.getOrElse(param.name.decoded, {
+    val params = for (param <- ctor.paramLists.head) yield {
+      ctorParams.getOrElse(param.name.decodedName.toString, {
         null
       })
     }
@@ -83,7 +83,7 @@ object ObjectFactory {
   }
 
   private def ctorArgumentTypes(ctor: MethodSymbol) = {
-    val paramList = ctor.paramss.head
+    val paramList = ctor.paramLists.head
 
     paramList.map(param => classLoader.runtimeClass(param.typeSignature))
   }
