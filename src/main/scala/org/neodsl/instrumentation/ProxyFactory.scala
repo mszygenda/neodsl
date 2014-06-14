@@ -30,7 +30,9 @@ object ProxyFactory {
   def getProxyCreator[P <: Proxyable](implicit manifest: Manifest[P]): ProxyCreator = {
     val classInfo = ClassInfoFactory.getClassInfo[P]
 
-    proxyCache.getOrElseUpdate(classInfo.fullName, createProxyCreator[P])
+    proxyCache.getOrElseUpdate(classInfo.fullName, {
+      createProxyCreator[P]
+    })
   }
 
   private def createProxyCreator[P <: Proxyable](implicit manifest: Manifest[P]): ProxyCreator = {

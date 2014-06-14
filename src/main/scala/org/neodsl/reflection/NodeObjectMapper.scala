@@ -5,7 +5,7 @@ import scala.reflect.runtime.universe._
 class NodeObjectMapper extends ObjectMapper {
   override def mapToObject(classType: Type)(map: Map[String, Any]): Any = {
     val classInfo = ClassInfoFactory.getClassInfo(classType)
-    val obj = classInfo.mainCtor.callWithDefaults()
+    val obj = classInfo.defaultOrMainCtor.callWithDefaults()
 
     setObjectProperties(classInfo, obj, map)
 

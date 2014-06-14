@@ -13,7 +13,7 @@ class QueriesExamples extends BaseTests {
     val (friend, comment) = (p[Person], p[Comment])
 
     { john knows friend } and
-    { john likes { comment writtenBy friend } } where {
+    { friend likes comment } where {
       friend.name == "Matthew"
     } select(friend, comment, john)
   }

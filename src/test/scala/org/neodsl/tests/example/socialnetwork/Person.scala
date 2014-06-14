@@ -3,6 +3,7 @@ package org.neodsl.tests.example.socialnetwork
 import org.neodsl.dsl.domain.{DomainCompanionObject, DomainObject}
 import org.neodsl.dsl.patterns.PatternBuilder._
 import Database._
+import org.neodsl.macros.Macros._
 
 case class Person(name: String) extends DomainObject[Person] {
   val knows = --[Person]("KNOWS")
