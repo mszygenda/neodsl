@@ -1,4 +1,4 @@
-package hacks
+package org.neodsl.tests.performance 
 
 import scala.collection.immutable.HashMap
 import scala.reflect.runtime.universe._
