@@ -7,17 +7,17 @@ It lets you build Cypher queries with easy to read DSL which are automatically v
 
 Project is still under active development. It for sure has some bugs and doesn't cover all possible use cases but it aims to develop interesting way of searching in graph databases.
 
-Summary of what it does:
+**Summary of what it does:**
 
-Let you express complex patterns using friendly syntax that is automatically validated at compilation phase
-Let you express simple conditions for returned nodes which are serialized into WHERE statements (Using basic Scala syntax for Boolean expressions, achieved using Scala Macros)
-Map results from database to domain classes
+* Let you express complex patterns using friendly syntax that is automatically validated at compilation phase
+* Let you express simple conditions for returned nodes which are serialized into WHERE statements (Using basic Scala syntax for Boolean expressions, achieved using Scala Macros)
+* Map results from database to domain classes
 
-Missing features:
+**And what it doesn't:**
 
-Nodes, relationships creation/updates
-Advanced criteria for returned nodes (like expressing uniqueness)
-And probably a lot more!
+* Won't help you create/update nodes, relationships **yet**
+* Won't let you define some advanced criteria for returned nodes (like expressing uniqueness)
+* And probably a lot more!
 
 ### Examples
 
