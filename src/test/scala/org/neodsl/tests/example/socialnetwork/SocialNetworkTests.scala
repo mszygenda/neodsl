@@ -21,4 +21,11 @@ class SocialNetworkTests extends BaseTests {
     johnsPosts.length shouldEqual 1
     johnsPosts should contain(Comment("Wise Comment"))
   }
+
+  "Person.friendsWhoLikeComment(john, Wise Comment)" should "return (Anne, Wise Comment)" in {
+    val friendsWhoLikeComment = Person.friendsWhoLikeComment(john, "Wise Comment")
+
+    friendsWhoLikeComment.length shouldEqual 1
+    friendsWhoLikeComment should contain((Person("Anne"), Comment("Wise Comment")))
+  }
 }
