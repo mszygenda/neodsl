@@ -13,10 +13,11 @@ Project is still under active development. It for sure has some bugs and doesn't
 * Let you express simple conditions for returned nodes which are serialized into WHERE statements (Using basic Scala syntax for Boolean expressions, achieved using Scala Macros)
 * Map results from database to domain classes
 
-**And what it doesn't:**
+**And what it doesn't (yet!):**
 
-* Won't help you create/update nodes, relationships **yet**
+* Won't help you create/update nodes, relationships
 * Won't let you define some advanced criteria for returned nodes (like expressing uniqueness)
+* Won't make you coffee (what a joke!)
 * And probably a lot more!
 
 ### Examples
