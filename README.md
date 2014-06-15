@@ -20,6 +20,8 @@ Project is still under active development. It for sure has some bugs and doesn't
 * Won't make you coffee (what a joke!)
 * And probably a lot more!
 
+If you're bored with your life you may read paper (in polish) about this project at: http://sigma.inf.ug.edu.pl/~mszygenda/master-thesis.pdf
+
 ### Examples
 
 Given following model classes
